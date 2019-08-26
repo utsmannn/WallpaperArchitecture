@@ -28,6 +28,3 @@ data class Source(
 data class Responses(val page: Int,
                      val per_page: Int,
                      val photos: List<Pexel>)
-
-data class Category(val query: String,
-                    val url: String)
