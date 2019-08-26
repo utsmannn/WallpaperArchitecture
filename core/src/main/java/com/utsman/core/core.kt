@@ -3,9 +3,11 @@
 package com.utsman.core
 
 import android.content.Context
+import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.paging.PagedList
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 fun logi(msg: String?) = Log.i("anjaaay", msg)
@@ -20,6 +22,20 @@ fun ImageView.load(url: String?) = GlideApp.with(context)
     .placeholder(android.R.color.darker_gray)
     .into(this)
 
-val BASEURL_UNSPLASH = "https://api.unsplash.com/"
+fun configPaged(size: Int): PagedList.Config = PagedList.Config.Builder()
+    .setPageSize(size)
+    .setEnablePlaceholders(true)
+    .build()
+
+fun getConnectivity(context: Context?) : Boolean {
+    val conManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork = conManager.activeNetworkInfo
+    return activeNetwork?.isConnectedOrConnecting == true
+}
+
+const val BASEURL_UNSPLASH = "https://api.unsplash.com/"
 const val APIKEY_UNSPLASH = "9c72b38fec37970e35dbe5c8d558c2bcb42eb72ca36a038cde056bc9d536dbe9"
+
+const val HEADER_PEXEL = "Authorization: 563492ad6f91700001000001880a2e3eb5d6452a94a3dd050f6395a6"
+const val BASEURL_PEXEL = "https://api.pexels.com/"
 

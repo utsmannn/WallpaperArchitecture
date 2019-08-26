@@ -10,6 +10,8 @@ import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import com.utsman.core.BaseAndroidViewModel
+import com.utsman.core.configPaged
+import com.utsman.core.getConnectivity
 import com.utsman.recycling.paged.extentions.NetworkState
 import com.utsman.unsplash.Unsplash
 import com.utsman.unsplash.local.UnsplashDb
@@ -29,25 +31,12 @@ class UnsplashViewModel(application: Application) : BaseAndroidViewModel(applica
         }
     }
 
-    private fun getConnectivity(context: Context?) : Boolean {
-        val conManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = conManager.activeNetworkInfo
-        return activeNetwork?.isConnectedOrConnecting == true
-    }
-
-    private fun configPaged(size: Int): PagedList.Config = PagedList.Config.Builder()
-        .setPageSize(size)
-        .setEnablePlaceholders(true)
-        .build()
-
     fun getPhoto(): LiveData<PagedList<Unsplash>> {
 
         return when(getConnectivity(getApplication())) {
             true -> LivePagedListBuilder(dataFactory!!, configPaged(4)).build()
             false -> db.unsplashDao().getAllLocal().toLiveData(4)
         }
-
-        //return db.unsplashDao().getAllLocal().toLiveData(4)
     }
 
     fun getLoader(): LiveData<NetworkState>? = networkState

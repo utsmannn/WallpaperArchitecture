@@ -42,15 +42,5 @@ interface RetrofitInstance {
         fun getListPhoto(page: Int, clientId: String): Flowable<List<Unsplash>> =
             create().getListPhotos(page, clientId)
                 .subscribeOn(Schedulers.io())
-
-        fun getListPhotoRx(page: Int, clientId: String) =
-            create().getListPhotos(page, clientId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-
-                }, {
-
-                })
     }
 }

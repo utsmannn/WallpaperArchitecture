@@ -1,30 +1,20 @@
 package com.utsman.unsplash.paged
 
 import android.content.Context
-import android.net.NetworkInfo
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.paging.DataSource
 import androidx.paging.ItemKeyedDataSource
-import androidx.paging.PageKeyedDataSource
-import androidx.paging.toLiveData
-import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
-import com.github.pwittchen.reactivenetwork.library.rx2.ConnectivityPredicate
-import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.utsman.core.APIKEY_UNSPLASH
 import com.utsman.core.loge
 import com.utsman.core.logi
 import com.utsman.recycling.paged.extentions.NetworkState
-import com.utsman.unsplash.api.RetrofitInstance
 import com.utsman.unsplash.Unsplash
-import com.utsman.unsplash.convertInt
+import com.utsman.unsplash.api.RetrofitInstance
 import com.utsman.unsplash.local.UnsplashDb
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
-class UnsplashPagedSource(private val disposable: CompositeDisposable, private val context: Context) : ItemKeyedDataSource<String, Unsplash>() {
+class UnsplashPagedSource(private val disposable: CompositeDisposable, context: Context) : ItemKeyedDataSource<String, Unsplash>() {
 
     private var currentPage = 1
     var networkState: MutableLiveData<NetworkState> = MutableLiveData()

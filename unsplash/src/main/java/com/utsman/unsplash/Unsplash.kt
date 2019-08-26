@@ -5,7 +5,6 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import retrofit2.http.Field
 
 @Entity
 data class Url(
@@ -32,5 +31,3 @@ data class Unsplash(
     @Embedded
     val urls: Url
 )
-
-fun String.convertInt() = java.lang.Integer.parseInt(this)
