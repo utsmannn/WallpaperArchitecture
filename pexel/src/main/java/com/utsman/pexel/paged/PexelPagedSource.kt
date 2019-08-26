@@ -7,6 +7,7 @@ import androidx.paging.ItemKeyedDataSource
 import com.utsman.core.logi
 import com.utsman.pexel.Pexel
 import com.utsman.pexel.api.RetrofitInstance
+import com.utsman.pexel.local.PexelDb
 import com.utsman.recycling.paged.extentions.NetworkState
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,6 +16,7 @@ class PexelPagedSource(private val disposable: CompositeDisposable, context: Con
 
     val networkState: MutableLiveData<NetworkState> = MutableLiveData()
     private var page = 1
+    private val pexelDb = PexelDb.getInstance(context)
 
 
     override fun loadInitial(
@@ -25,6 +27,9 @@ class PexelPagedSource(private val disposable: CompositeDisposable, context: Con
         val disposePexel = RetrofitInstance.curatedRx(page)
             .doOnNext { page++ }
             .map { it.photos }
+            .doOnNext {
+                pexelDb.pexelDao().insert(it)
+            }
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 networkState.postValue(NetworkState.LOADED)
@@ -42,6 +47,9 @@ class PexelPagedSource(private val disposable: CompositeDisposable, context: Con
         val disposePexel = RetrofitInstance.curatedRx(page)
             .doOnNext { page++ }
             .map { it.photos }
+            .doOnNext {
+                pexelDb.pexelDao().insert(it)
+            }
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 networkState.postValue(NetworkState.LOADED)
