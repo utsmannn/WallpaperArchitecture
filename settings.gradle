@@ -1,0 +1,2 @@
+include ':app', ':unsplash', ':core'
+rootProject.name='Wallpaper'
