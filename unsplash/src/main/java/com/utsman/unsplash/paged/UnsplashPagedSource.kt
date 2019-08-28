@@ -24,7 +24,7 @@ class UnsplashPagedSource(private val disposable: CompositeDisposable, context: 
         params: LoadInitialParams<String>,
         callback: LoadInitialCallback<Unsplash>
     ) {
-        //callback.onResult(emptyList)
+
         networkState.postValue(NetworkState.LOADING)
         val disposePhoto = RetrofitInstance.getListPhoto(1, APIKEY_UNSPLASH)
             .doOnNext { currentPage++ }

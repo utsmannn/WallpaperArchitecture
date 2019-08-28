@@ -15,13 +15,4 @@ interface UnsplashDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(photos: List<Unsplash>)
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(unsplash: Unsplash)
-
-    @Query("select * from Unsplash")
-    fun getAllLocalAsList(): List<Unsplash>
-
-    @Query("select * from Unsplash where id >= :id limit :size")
-    fun getAllLocalAsList(id: Int, size: Int): List<Unsplash>
 }

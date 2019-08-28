@@ -1,2 +1,2 @@
-include ':app', ':unsplash', ':core'
+include ':app', ':unsplash', ':core', ':pexel'
 rootProject.name='Wallpaper'
